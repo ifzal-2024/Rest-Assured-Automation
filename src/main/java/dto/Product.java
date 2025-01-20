@@ -13,6 +13,29 @@ public class Product
 	private String updatedAt;
 	private Category category;
 	
+	
+	public Product() {
+	}
+	
+	
+	
+	
+	public Product(int id, String title, int price, String description, String[] images, String creationAt,
+			String updatedAt, Category category) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.price = price;
+		this.description = description;
+		this.images = images;
+		this.creationAt = creationAt;
+		this.updatedAt = updatedAt;
+		this.category = category;
+	}
+
+
+
+
 	public int getId() {
 		return id;
 	}

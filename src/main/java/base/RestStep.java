@@ -3,21 +3,27 @@ package base;
 import java.util.ArrayList;
 import java.util.List;
 
+import endpoint.IEndpoint;
 import groovyjarjarpicocli.CommandLine.IFactory;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import util.EnvConfiguration;
 
-public abstract class RestStep {
+public abstract class RestStep implements IEndpoint
+{
 	
 	RequestSpecification request;
 	Response response;
+	
+	EnvConfiguration envConfiguration = new EnvConfiguration();
 
 	public void init() {
 		request = RestAssured.given(); 
 		//request=RestAssured.reset();
+		setBaseUrl();
 		
 	}
 	
@@ -32,7 +38,7 @@ public abstract class RestStep {
 			
 	
 	public void setBaseUrl() {
-		request.baseUri("https://api.escuelajs.co/");
+		request.baseUri(envConfiguration.getUrl());
 	}
 	
 	public void setHeaders(Headers headers)
@@ -110,7 +116,7 @@ public abstract class RestStep {
 		 * statusCode - DONE
 		 * statusMessage - 
 		 */
-		setBaseUrl();
+		
 		setHeaders(headers);
 		setEndpoint(endpoint);
 		
@@ -128,6 +134,26 @@ public abstract class RestStep {
 		
 		
 		}
+	
+	
+	public Response apiPostStep(Headers headers, String endpoint, Object body, Object[] params, 
+			int stausCode, String statusMessage) throws Exception 
+	{	
+		setHeaders(headers);
+		setEndpoint(endpoint);
+		setParams(endpoint, params);
+		
+		response = request.log().all().get();
+		response.then().log().all();
+		
+		validateStatusCode(stausCode);
+		validateStatusLine(statusMessage);
+		
+		return response;
+	}
+	
+	
+	
 	/*
 	 * validate Status Code
 	 * @param expectedSTatusCOde
