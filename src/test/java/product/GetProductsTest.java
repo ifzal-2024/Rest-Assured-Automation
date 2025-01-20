@@ -5,11 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import base.RestStep;
 import dto.Product;
+import endpoint.IEndpoint;
 import io.restassured.path.json.JsonPath;
 
 public class GetProductsTest extends RestStep{ 
 	
-	String endpoint  = "api/v1/products"; 
+	
 	
 	@BeforeEach
 	public void testDataSetup() 
@@ -23,7 +24,7 @@ public class GetProductsTest extends RestStep{
 	{
 		
 		//Lets make apiGet Call and we know it will return reposnse
-		apiGetStep(null, endpoint,null, 200, null); 
+		apiGetStep(null, GET_PRODUCTS,null, 200, null); 
 		// DTO - Data Table Object
 		Product[] products = getResponse().as(Product[].class);
 		System.out.println(products[0].getDescription());
