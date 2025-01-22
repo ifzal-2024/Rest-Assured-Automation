@@ -24,7 +24,7 @@ public class Product
 			String updatedAt, Category category) {
 		super();
 		this.id = id;
-		this.title = title;
+		this.title = title; 
 		this.price = price;
 		this.description = description;
 		this.images = images;
@@ -32,7 +32,6 @@ public class Product
 		this.updatedAt = updatedAt;
 		this.category = category;
 	}
-
 
 
 

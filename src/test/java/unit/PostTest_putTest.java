@@ -31,7 +31,7 @@ public class PostTest_putTest {
 	{
 		// Test Data creation/preparation
 		User user =new User();
-		user.setFirstName("Fatema"); 
+		user.setFirstName("Fatema");  
 		user.setJob("housewife");
 		
 		//Request building
